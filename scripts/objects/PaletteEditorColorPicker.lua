@@ -30,7 +30,6 @@ end
 function PaletteEditorColorPicker:update()
     local color = self.color_ref
     if Input.down("up") then
-        Kristal.Console.env.print(color)
         color[1] = .5
     end
 end
