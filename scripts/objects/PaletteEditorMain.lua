@@ -20,19 +20,28 @@ function PaletteEditorMain:onEnter()
     
 end
 
+function PaletteEditorMain:swapPalettes(a,b)
+    local pal_a = self.editor.palettes[a]
+    local pal_b = self.editor.palettes[b]
+    if not (pal_a and pal_b) then return end
+
+    self.editor.palettes[a] = pal_b
+    self.editor.palettes[b] = pal_a
+end
+
 function PaletteEditorMain:onKeyPressed(key)
     if Input.is("down", key) then
         if Input.down("cancel") then
-        else
-            self.editor.selected_palette = ((self.editor.selected_palette + 1) % (#self.editor.palettes+1))
-            Assets.playSound("ui_move")
+            self:swapPalettes(self.editor.selected_palette, self.editor.selected_palette + 1)
         end
+        self.editor.selected_palette = ((self.editor.selected_palette + 1) % (#self.editor.palettes+1))
+        Assets.playSound("ui_move")
     elseif Input.is("up", key) then
         if Input.down("cancel") then
-        else
-            self.editor.selected_palette = ((self.editor.selected_palette - 1) % (#self.editor.palettes+1))
-            Assets.playSound("ui_move")
+            self:swapPalettes(self.editor.selected_palette, self.editor.selected_palette - 1)
         end
+        self.editor.selected_palette = ((self.editor.selected_palette - 1) % (#self.editor.palettes+1))
+        Assets.playSound("ui_move")
     elseif Input.is("left", key) then
         self.select_x = (((self.select_x-2) % #self.editor.base_pal) + 1)
         Assets.playSound("ui_move")
