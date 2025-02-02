@@ -1,0 +1,24 @@
+{
+    // The ID of your mod. Should be unique!!
+    "id": "dppe",
+    // Displays on the main menu.
+    "name": "Dark Place Palette Editor",
+    // Displays underneath the name. Optional.
+    "subtitle": "Well, right now it's more of a viewer...",
+    // The version of your mod.
+    "version": "v1.0.0",
+    "engineVer": "v0.10.0-dev",
+    "chapter": 2,
+    "map": "room1",
+
+    // Whether the mod is hidden from the mod selection.
+    "hidden": false,
+
+    // Config values for the engine and any libraries you may have.
+    // These config values can control chapter-specific features as well.
+    "config": {
+        "kristal": {
+            // End of config
+        }
+    },
+}

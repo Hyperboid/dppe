@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" backgroundcolor="#9e9e9e" nextlayerid="6" nextobjectid="48">
+ <editorsettings>
+  <export target="room1.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="light" type="bool" value="true"/>
+  <property name="name" value="Test Map - Room 1"/>
+ </properties>
+ <objectgroup color="#0000ff" id="3" name="collision" opacity="0.5">
+  <object id="43" x="-120" y="120">
+   <polygon points="0,20 -200,0 -210,50"/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="4" name="objects"/>
+ <objectgroup color="#7f00ff" id="5" name="markers">
+  <object id="20" name="spawn" x="-240" y="160">
+   <point/>
+  </object>
+ </objectgroup>
+</map>
