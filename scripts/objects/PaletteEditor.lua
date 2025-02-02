@@ -73,6 +73,7 @@ function PaletteEditor:setActor(actor)
         for key, value in pairs(all_colors) do
             if value then table.insert(self.base_pal, hexToRgb(key)) end
         end
+        self:duplicatePalette(0)
     end
 end
 
