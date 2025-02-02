@@ -1,6 +1,12 @@
 ---@class PaletteEditor : Object
 local PaletteEditor, super = Class(Object)
 
+PaletteEditor.PALETTE_NAMES = {
+    [0] = {COLORS.gray, "Default"},
+    "Steamworks",
+    "Lower Snowdin",
+}
+
 function PaletteEditor:init(actor)
     super.init(self)
     self:setParallax(0)

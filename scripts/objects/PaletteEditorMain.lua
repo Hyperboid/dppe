@@ -88,6 +88,8 @@ function PaletteEditorMain:draw()
                 love.graphics.rectangle("line", (col_id*23)-1, (pal_id*23)-1, 23,23)
             end
         end
+        Draw.setColor(COLORS.white)
+        love.graphics.print(PaletteEditor.PALETTE_NAMES[pal_id-1] or "???", (#self.editor.base_pal+1)*23, (pal_id*23)-6)
     end
     Draw.popCanvas()
     Draw.setColor(COLORS.white)
