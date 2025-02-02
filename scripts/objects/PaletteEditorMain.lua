@@ -21,21 +21,31 @@ function PaletteEditorMain:onEnter()
 end
 
 function PaletteEditorMain:onKeyPressed(key)
-    if Input.is(key, "down") then
+    if Input.is("down", key) then
         self.editor.selected_palette = ((self.editor.selected_palette + 1) % (#self.editor.palettes+1))
         Assets.playSound("ui_move")
     end
-    if Input.is(key, "up") then
+    if Input.is("up", key) then
         self.editor.selected_palette = ((self.editor.selected_palette - 1) % (#self.editor.palettes+1))
         Assets.playSound("ui_move")
     end
-    if Input.is(key, "left") then
+    if Input.is("left", key) then
         self.select_x = (((self.select_x-2) % #self.editor.base_pal) + 1)
         Assets.playSound("ui_move")
     end
-    if Input.is(key, "right") then
+    if Input.is("right", key) then
         self.select_x = (((self.select_x) % #self.editor.base_pal) + 1)
         Assets.playSound("ui_move")
+    end
+    if Input.is("confirm", key) then
+        if self.editor.selected_palette == 0 then
+            Assets.playSound("ui_cant_select")
+        else
+            Assets.playSound("ui_select")
+            self.editor.picker.pal_id = self.editor.selected_palette
+            self.editor.picker.col_id = self.select_x
+            self.editor:pushState("PICKER", self.editor:getPalette(self.editor.selected_palette)[self.select_x])
+        end
     end
 end
 

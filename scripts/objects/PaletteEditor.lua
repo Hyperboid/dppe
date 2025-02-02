@@ -13,7 +13,9 @@ function PaletteEditor:init(actor)
     self:setActor(actor)
     self.state_manager = StateManager("", self, true)
     self.main = PaletteEditorMain(self)
+    self.picker = PaletteEditorColorPicker(self)
     self.state_manager:addState("MAIN", self.main)
+    self.state_manager:addState("PICKER", self.picker)
 end
 
 function PaletteEditor:onAdd(parent)
@@ -31,6 +33,10 @@ end
 
 function PaletteEditor:popState()
     self.state_manager:popState()
+end
+
+local function hexToRgb(hex, value)
+    return {tonumber(string.sub(hex, 2, 3), 16)/255, tonumber(string.sub(hex, 4, 5), 16)/255, tonumber(string.sub(hex, 6, 7), 16)/255, value or 1}
 end
 
 ---@param actor Actor|string
@@ -65,7 +71,7 @@ function PaletteEditor:setActor(actor)
             end
         end
         for key, value in pairs(all_colors) do
-            if value then table.insert(self.base_pal, Utils.hexToRgb(key)) end
+            if value then table.insert(self.base_pal, hexToRgb(key)) end
         end
     end
 end
