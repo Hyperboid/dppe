@@ -68,6 +68,28 @@ function PaletteEditor:setActor(actor)
     end
 end
 
+function PaletteEditor:save()
+    self:saveAs(Mod.info.path.."/assets/sprites/"..self.actor:getSpritePath().."/palette.png")
+end
+
+function PaletteEditor:saveAs(path)
+    do
+        local splitpath = Utils.split(path, "/")
+        table.remove(splitpath)
+        love.filesystem.createDirectory(table.concat(splitpath, "/"))
+    end
+    local canvas = love.graphics.newCanvas(#self.base_pal, #self.palettes+1)
+    Draw.pushCanvas(canvas)
+    for x = 1, #self.base_pal do
+        for y = 0, #self.palettes do
+            Draw.setColor((self.palettes[y] or self.base_pal)[x])
+            love.graphics.points(x-1,y+1)
+        end
+    end
+    Draw.popCanvas()
+    canvas:newImageData():encode("png", path)
+end
+
 function PaletteEditor:update()
     self.state_manager:update()
     super.update(self)
@@ -84,6 +106,7 @@ end
 
 function PaletteEditor:draw()
     self.state_manager:draw()
+    if not self.actor then return end
     self.shader:send("base_palette", unpack(self.base_pal))
     self.shader:send("live_palette", unpack(self.palettes[self.selected_palette] or self.base_pal))
     love.graphics.setShader(self.shader)
