@@ -59,7 +59,9 @@ function PaletteEditor:setActor(actor)
         local all_colors = {}
         for x = 0, self.spritedata:getWidth()-1 do
             for y = 0, self.spritedata:getHeight()-1 do
-                all_colors[Utils.rgbToHex({self.spritedata:getPixel(x, y)})] = true
+                if select(4, self.spritedata:getPixel(x, y)) > 0 then
+                    all_colors[Utils.rgbToHex({self.spritedata:getPixel(x, y)})] = true
+                end
             end
         end
         for key, value in pairs(all_colors) do
