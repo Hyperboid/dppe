@@ -5,6 +5,7 @@ PaletteEditor.PALETTE_NAMES = {
     [0] = {COLORS.gray, "Default"},
     "Steamworks",
     "Lower Snowdin",
+    "Dunes Caves",
 }
 
 function PaletteEditor:init(actor)

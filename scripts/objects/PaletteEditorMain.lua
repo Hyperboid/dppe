@@ -43,13 +43,15 @@ function PaletteEditorMain:onKeyPressed(key)
         self.editor.selected_palette = ((self.editor.selected_palette - 1) % (#self.editor.palettes+1))
         Assets.playSound("ui_move")
     elseif Input.is("left", key) then
-        self.select_x = (((self.select_x-2) % #self.editor.base_pal) + 1)
+        self.select_x = (((self.select_x-1) % (#self.editor.base_pal+1)))
         Assets.playSound("ui_move")
     elseif Input.is("right", key) then
-        self.select_x = (((self.select_x) % #self.editor.base_pal) + 1)
+        self.select_x = (((self.select_x+1) % (#self.editor.base_pal+1)))
         Assets.playSound("ui_move")
     elseif Input.is("confirm", key) then
-        if self.editor.selected_palette == 0 then
+        if self.select_x == 0 then
+            Assets.playSound("ui_cant_select")
+        elseif self.editor.selected_palette == 0 then
             Assets.playSound("ui_cant_select")
         else
             Assets.playSound("ui_select")
@@ -87,6 +89,14 @@ function PaletteEditorMain:draw()
                 Draw.setColor(COLORS.yellow)
                 love.graphics.rectangle("line", (col_id*23)-1, (pal_id*23)-1, 23,23)
             end
+        end
+        if (self.editor.selected_palette+1) == pal_id then
+            if self.select_x == 0 then
+                Draw.setColor(COLORS.yellow)
+            else
+                Draw.setColor(COLORS.gray)
+            end
+            Draw.draw(Assets.getTexture("menu"), 1,(pal_id*23), 0, 2,2)
         end
         Draw.setColor(COLORS.white)
         love.graphics.print(PaletteEditor.PALETTE_NAMES[pal_id-1] or "???", (#self.editor.base_pal+1)*23, (pal_id*23)-6)
