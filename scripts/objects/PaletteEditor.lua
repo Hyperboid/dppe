@@ -84,12 +84,16 @@ function PaletteEditor:saveAs(path)
     Draw.pushCanvas(canvas)
     for x = 1, #self.base_pal do
         for y = 0, #self.palettes do
-            Draw.setColor((self.palettes[y] or self.base_pal)[x])
+            Draw.setColor((self:getPalette(y))[x])
             love.graphics.points(x-1,y+1)
         end
     end
     Draw.popCanvas()
     canvas:newImageData():encode("png", path)
+end
+
+function PaletteEditor:getPalette(id)
+    return (self.palettes[id] or self.base_pal)
 end
 
 function PaletteEditor:update()
@@ -98,7 +102,7 @@ function PaletteEditor:update()
 end
 
 function PaletteEditor:duplicatePalette(id)
-    local old_pal = (self.palettes[id] or self.base_pal)
+    local old_pal = self:getPalette(id)
     local new_pal = {}
     for i = 1, #old_pal do
         table.insert(new_pal, Utils.copy(old_pal[i]))
@@ -119,7 +123,7 @@ function PaletteEditor:draw()
     self.state_manager:draw()
     if not self.actor then return end
     self.shader:send("base_palette", unpack(self.base_pal))
-    self.shader:send("live_palette", unpack(self.palettes[self.selected_palette] or self.base_pal))
+    self.shader:send("live_palette", unpack(self:getPalette(self.selected_palette)))
     love.graphics.setShader(self.shader)
     Draw.draw(self.sprite, 100, 100, 0, 4,4)
     love.graphics.setShader()
