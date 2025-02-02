@@ -67,6 +67,8 @@ function PaletteEditorMain:draw()
     local canvas = Draw.pushCanvas(SCREEN_WIDTH, 100)
     Draw.setColor(COLORS.black)
     love.graphics.rectangle("fill", 0,0, SCREEN_WIDTH, 100)
+    love.graphics.translate(0, 20)
+    love.graphics.translate(0, 23 * -self.editor.selected_palette)
     local all_palletes = Utils.merge({self.editor.base_pal},self.editor.palettes)
     for pal_id, pal in ipairs(all_palletes) do
         for col_id, col in ipairs(pal) do
