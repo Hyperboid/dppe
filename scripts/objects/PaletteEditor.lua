@@ -45,7 +45,7 @@ function PaletteEditor:setActor(actor)
     self.sprite = love.graphics.newImage(self.spritedata)
     local pal_img = Assets.getTextureData(self.actor:getSpritePath() .. "/palette")
     if pal_img then
-        for x = 1, pal_img:getWidth()/2 do
+        for x = 1, pal_img:getWidth() do
             local r,g,b,a
             r,g,b,a = pal_img:getPixel(x - 1, 0)
             table.insert(self.base_pal, {r,g,b,a})
@@ -93,6 +93,15 @@ end
 function PaletteEditor:update()
     self.state_manager:update()
     super.update(self)
+end
+
+function PaletteEditor:duplicatePalette(id)
+    local old_pal = (self.palettes[id] or self.base_pal)
+    local new_pal = {}
+    for i = 1, #old_pal do
+        table.insert(new_pal, Utils.copy(old_pal[i]))
+    end
+    table.insert(self.palettes, id+1, new_pal)
 end
 
 function PaletteEditor:onKeyPressed(key, is_repeat)
