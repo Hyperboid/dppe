@@ -36,7 +36,10 @@ function PaletteEditorColorPicker:onEnter(_, color_ref)
 end
 
 function PaletteEditorColorPicker:onLeave()
-    self.container:remove()
+    local picker, container = self.picker, self.container
+    picker:slideTo(SCREEN_WIDTH+256+16+32, 16, 0.3, "out-quad", function ()
+        container:remove()
+    end)
 end
 
 function PaletteEditorColorPicker:onKeyPressed(key)
