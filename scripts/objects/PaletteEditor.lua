@@ -49,10 +49,11 @@ end
 ---@param actor Actor|string
 function PaletteEditor:setActor(actor)
     if type(actor) == "string" then actor = Registry.createActor(actor) end
+    if self.actorsprite then self.actorsprite:remove() end
+    ---@cast actor Actor
     self.base_pal = {}
     self.palettes = {}
     self.selected_palette = 0
-    ---@cast actor Actor
     self.actor = actor
     self.spritedata = Assets.getTextureData(self.actor:getSpritePath() .. "/" .. self.actor:getDefault() .. "/down_1")
     self.sprite = love.graphics.newImage(self.spritedata)
@@ -82,6 +83,11 @@ function PaletteEditor:setActor(actor)
         end
         self:duplicatePalette(0)
     end
+    self.actorsprite = actor:createSprite()
+    self:addChild(self.actorsprite)
+    self.actorsprite:addFX(ShaderFX(self.shader))
+    self.actorsprite:setScale(6)
+    self.actorsprite:setPosition((SCREEN_WIDTH/2)-(self.actorsprite.width*3),((SCREEN_HEIGHT-100)/2)-(self.actorsprite.height*3))
 end
 
 function PaletteEditor:save()
@@ -138,9 +144,7 @@ function PaletteEditor:draw()
     if not self.actor then return end
     self.shader:send("base_palette", unpack(self.base_pal))
     self.shader:send("live_palette", unpack(self:getPalette(self.selected_palette)))
-    love.graphics.setShader(self.shader)
-    Draw.draw(self.sprite, 100, 100, 0, 4,4)
-    love.graphics.setShader()
+    super.draw(self)
 end
 
 return PaletteEditor
