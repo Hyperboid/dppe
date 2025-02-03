@@ -57,7 +57,6 @@ function ColorPicker:createHueCanvas()
     Draw.pushCanvas(self.hue_canvas)
     love.graphics.clear()
     for hue = 0, 1, self.resolution do
-        print(hue / self.resolution)
         Draw.setColor(Utils.hsvToRgb(hue, self.saturation, self.value))
         love.graphics.rectangle("fill", 0, hue*256, 32, self.resolution*256)
     end
