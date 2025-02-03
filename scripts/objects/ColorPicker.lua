@@ -95,6 +95,7 @@ function ColorPicker:draw()
     Draw.setColor(COLORS.white)
     love.graphics.setLineWidth(2)
     love.graphics.ellipse("line", self.saturation*256, self.value*256, 4,4)
+    love.graphics.rectangle("line", self.width-36, (self.hue*256) - 4, 40,8)
 end
 
 return ColorPicker
