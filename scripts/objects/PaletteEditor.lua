@@ -17,6 +17,7 @@ function PaletteEditor:init(actor)
     ---@type Color[][]
     self.palettes = {}
     self.selected_palette = 0
+    self.backgrounds = Assets.getFrames("backgrounds/bg")
     self:setActor(actor)
     self.state_manager = StateManager("", self, true)
     self.main = PaletteEditorMain(self)
@@ -87,7 +88,7 @@ function PaletteEditor:setActor(actor)
     self:addChild(self.actorsprite)
     self.actorsprite:addFX(ShaderFX(self.shader))
     self.actorsprite:setOrigin(0.5)
-    self.actorsprite:setScale(6)
+    self.actorsprite:setScale(4)
     self.actorsprite:setPosition((SCREEN_WIDTH/2),((SCREEN_HEIGHT-100)/2))
 end
 
@@ -149,6 +150,9 @@ function PaletteEditor:onKeyReleased(key)
 end
 
 function PaletteEditor:draw()
+    if self.backgrounds and self.backgrounds[self.selected_palette] then
+        Draw.draw(self.backgrounds[self.selected_palette])
+    end
     self.state_manager:draw()
     if not self.actor then return end
     self.shader:send("base_palette", unpack(self.base_pal))
