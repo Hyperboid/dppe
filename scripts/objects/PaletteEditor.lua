@@ -132,12 +132,19 @@ function PaletteEditor:update()
 end
 
 function PaletteEditor:duplicatePalette(id)
-    local old_pal = self:getPalette(id)
+    self:mixPalettes(id,id)
+end
+
+function PaletteEditor:mixPalettes(a,b)
+    local pal_a = self:getPalette(a)
+    local pal_b = self:getPalette(b)
     local new_pal = {}
-    for i = 1, #old_pal do
-        table.insert(new_pal, Utils.copy(old_pal[i]))
+    for i = 1, #pal_a do
+        local col_a = Utils.copy(pal_a[i])
+        local col_b = Utils.copy(pal_b[i])
+        new_pal[i] = Utils.lerp(col_a, col_b, 0.5)
     end
-    table.insert(self.palettes, id+1, new_pal)
+    table.insert(self.palettes, a+1, new_pal)
 end
 
 function PaletteEditor:onKeyPressed(key, is_repeat)
