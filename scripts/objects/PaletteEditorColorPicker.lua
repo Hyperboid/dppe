@@ -54,10 +54,16 @@ end
 function PaletteEditorColorPicker:update()
     local color = self.color_ref
     local incdec = DT*.3
+    local changed = false
     if Input.down("right") then
         color[self.channel_selected] = Utils.clamp(color[self.channel_selected]+incdec, 0,1)
+        changed = true
     elseif Input.down("left") then
         color[self.channel_selected] = Utils.clamp(color[self.channel_selected]-incdec, 0,1)
+        changed = true
+    end
+    if changed then
+        self.picker:setRGB(color)
     end
 end
 

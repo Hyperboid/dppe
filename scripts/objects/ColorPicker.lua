@@ -84,6 +84,12 @@ function ColorPicker:update()
     end
 end
 
+function ColorPicker:setRGB(color)
+    self.hue, self.saturation, self.value = rgbToHsv(unpack(color))
+    self:createColorSquareCanvas()
+    self:createHueCanvas()
+end
+
 function ColorPicker:draw()
     Draw.draw(self.color_square_canvas)
     Draw.draw(self.hue_canvas, self.width - 32,0)
