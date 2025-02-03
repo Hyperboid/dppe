@@ -81,6 +81,7 @@ function ColorPicker:update()
         self:createColorSquareCanvas()
         self:createHueCanvas()
     end
+    super.update(self)
 end
 
 function ColorPicker:setRGB(color)

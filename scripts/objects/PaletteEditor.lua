@@ -86,8 +86,17 @@ function PaletteEditor:setActor(actor)
     self.actorsprite = actor:createSprite()
     self:addChild(self.actorsprite)
     self.actorsprite:addFX(ShaderFX(self.shader))
+    self.actorsprite:setOrigin(0.5)
     self.actorsprite:setScale(6)
-    self.actorsprite:setPosition((SCREEN_WIDTH/2)-(self.actorsprite.width*3),((SCREEN_HEIGHT-100)/2)-(self.actorsprite.height*3))
+    self.actorsprite:setPosition((SCREEN_WIDTH/2),((SCREEN_HEIGHT-100)/2))
+end
+
+function PaletteEditor:onStateChange(old,new)
+    if new == "PICKER" then
+        self.actorsprite:slideTo((SCREEN_WIDTH/4),((SCREEN_HEIGHT-100)/2), 0.3, "out-quad")
+    elseif new == "MAIN" then
+        self.actorsprite:slideTo((SCREEN_WIDTH/2),((SCREEN_HEIGHT-100)/2), 0.3, "out-quad")
+    end
 end
 
 function PaletteEditor:save()
