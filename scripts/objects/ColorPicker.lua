@@ -70,9 +70,9 @@ function ColorPicker:update()
         local mstartx, mstarty = self:getFullTransform():inverseTransformPoint(select(2, Input.mouseDown()))
         local rect = self:getDebugRectangle() or { 0, 0, self.width, self.height+4 }
         if mstartx >= rect[1] and mstartx < rect[1] + rect[3] and mstarty >= rect[2] and mstarty < rect[2] + rect[4] then
-            if mx >= (self.width - 32) then
+            if mstartx >= (self.width-32) then
                 self.hue = Utils.clamp(my / self.height, 0,1)
-            elseif mx <= self.height then
+            elseif mstartx <= self.height then
                 self.saturation = Utils.clamp(mx / self.height, 0,1)
                 self.value = Utils.clamp(my / self.height, 0,1)
             end
