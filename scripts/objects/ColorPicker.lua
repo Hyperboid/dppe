@@ -25,7 +25,7 @@ local function rgbToHsv(r, g, b, a)
 end
 
 function ColorPicker:init(color,x,y)
-    super.init(self,x,y,256+32+4,256)
+    super.init(self,x,y,256+32+16,256)
     self.color_square_canvas = love.graphics.newCanvas(256, 256)
 
     self.hue_canvas = love.graphics.newCanvas(32, 256)

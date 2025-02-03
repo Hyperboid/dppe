@@ -21,7 +21,7 @@ function PaletteEditorColorPicker:onEnter(_, color_ref)
     self.container = Object()
     self.container:setParent(Game.world)
     self.container:setLayer(WORLD_LAYERS["top"])
-    self.picker = ColorPicker(color_ref,SCREEN_WIDTH-4,4) ---@type ColorPicker
+    self.picker = ColorPicker(color_ref,SCREEN_WIDTH-16,16) ---@type ColorPicker
     self.picker:setOrigin(1,0)
     self.container:addChild(self.picker)
     self.color_ref = color_ref
