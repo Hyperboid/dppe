@@ -1,12 +1,6 @@
 ---@class ColorPicker : Object
 local ColorPicker, super = Class(Object)
 
-local COLOR_SQUARE_X_OFFSET = 100
-local COLOR_SQUARE_Y_OFFSET = 100
-local HUE_X_OFFSET = 400
-local HUE_Y_OFFSET = 100
-
-
 local function rgbToHsv(r, g, b, a)
     local max, min = math.max(r, g, b), math.min(r, g, b)
     local h, s, v
