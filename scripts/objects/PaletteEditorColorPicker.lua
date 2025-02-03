@@ -10,6 +10,7 @@ end
 
 function PaletteEditorColorPicker:registerEvents(master)
     self:registerEvent("enter", self.onEnter)
+    self:registerEvent("leave", self.onLeave)
     self:registerEvent("keypressed", self.onKeyPressed)
 
     self:registerEvent("update", self.update)
@@ -17,8 +18,24 @@ function PaletteEditorColorPicker:registerEvents(master)
 end
 
 function PaletteEditorColorPicker:onEnter(_, color_ref)
+    self.container = Object()
+    self.container:setParent(Game.world)
+    self.container:setLayer(WORLD_LAYERS["top"])
+    self.picker = ColorPicker(color_ref,SCREEN_WIDTH-4,4) ---@type ColorPicker
+    self.picker:setOrigin(1,0)
+    self.container:addChild(self.picker)
     self.color_ref = color_ref
+    self.picker.on_edit = function (p)
+        local r,g,b = Utils.hsvToRgb(self.picker.hue, self.picker.saturation, self.picker.value)
+        self.color_ref[1] = r
+        self.color_ref[2] = g
+        self.color_ref[3] = b
+    end
     self.channel_selected = 1
+end
+
+function PaletteEditorColorPicker:onLeave()
+    self.container:remove()
 end
 
 function PaletteEditorColorPicker:onKeyPressed(key)
