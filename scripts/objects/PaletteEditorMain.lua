@@ -50,7 +50,12 @@ function PaletteEditorMain:onKeyPressed(key)
         Assets.playSound("ui_move")
     elseif Input.is("confirm", key) then
         if self.select_x == 0 then
-            Assets.playSound("ui_cant_select")
+            if self.editor.selected_palette == 0 then
+                Assets.playSound("ui_cant_select")
+            else
+                Assets.playSound("ui_select")
+                self.editor:mixPalettes(self.editor.selected_palette-1, self.editor.selected_palette)
+            end
         elseif self.editor.selected_palette == 0 then
             Assets.playSound("ui_cant_select")
         else
@@ -99,7 +104,7 @@ function PaletteEditorMain:draw()
             Draw.draw(Assets.getTexture("menu"), 1,(pal_id*23), 0, 2,2)
         end
         Draw.setColor(COLORS.white)
-        love.graphics.print(PaletteEditor.PALETTE_NAMES[pal_id-1] or "???", (#self.editor.base_pal+1)*23, (pal_id*23)-6)
+        love.graphics.print(PaletteEditor.PALETTE_NAMES[pal_id-1], (#self.editor.base_pal+1)*23, (pal_id*23)-6)
     end
     Draw.popCanvas()
     Draw.setColor(COLORS.white)

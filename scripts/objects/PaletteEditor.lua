@@ -1,12 +1,24 @@
 ---@class PaletteEditor : Object
 local PaletteEditor, super = Class(Object)
 
+
+--- In-editor names of palettes. Please try to keep these continuous.
 PaletteEditor.PALETTE_NAMES = {
+    [-1] = {{0.3,0.3,0.3,1}, "(Unused)"},
     [0] = {COLORS.gray, "Default"},
-    "Steamworks",
-    "Lower Snowdin",
-    "Dunes Caves",
+
+    -- DLC YELLOW
+    [0x01] = "Steamworks",
+    [0x02] = "Lower Snowdin",
+    [0x03] = "Dunes Caves",
+
+    -- 
+    [0x10] = nil
 }
+
+setmetatable(PaletteEditor.PALETTE_NAMES, {__index = function (t, k)
+    return rawget(t, -1)
+end})
 
 function PaletteEditor:init(actor)
     super.init(self)
